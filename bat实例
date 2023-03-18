@@ -1,3 +1,5 @@
+批处理运行的时候最好申请下管理员权限在执行相关的代码否则会出现各种问题
+
 @echo off
 %1 mshta vbscript:CreateObject("Shell.Application").ShellExecute("cmd.exe","/c %~s0 ::","","runas",1)(window.close)&&exit
 if "%1"=="h" goto begin
