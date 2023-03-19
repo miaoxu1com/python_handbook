@@ -1,9 +1,12 @@
 批处理运行的时候最好申请下管理员权限在执行相关的代码否则会出现各种问题
-
+任务栏会闪一下
 @echo off
-%1 mshta vbscript:CreateObject("Shell.Application").ShellExecute("cmd.exe","/c %~s0 ::","","runas",1)(window.close)&&exit
 if "%1"=="h" goto begin
+cd /d %~dp0
 start mshta vbscript:createobject("wscript.shell").run("""%~nx0"" h",0)(window.close)&&exit
+start %1 mshta vbscript:CreateObject("Shell.Application").ShellExecute("cmd.exe","/c %~s0 ::","","runas",1)(window.close)&&exit
 :begin
-D:\alist-windows-amd64\alist.exe server
+taskkill /F /IM alist.exe 2>nul
+start /b D:\alist-windows-amd64\alist.exe server
 start http://127.0.0.1:5244
+
