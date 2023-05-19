@@ -1,8 +1,8 @@
+https://robotframework-userguide-cn.readthedocs.io/zh_CN/latest/ExtendingRobotFramework/CreatingTestLibraries.html#logging-to-console
 日志分为控制台日志和日志文件，调试时一般需要打印到控制台
 使用
 sys.__stdout__.write()
 sys.__stderr__.write()
- 
 用于编程写日志的API, 相对于往stdout和stderr中写入内容, 提供了更清晰的写日志方式. 但是, 当前这些API只对基于Python的库可用.
 
 日志API
@@ -17,3 +17,26 @@ def my_keyword(arg):
     do_something()
     logger.info('<i>This</i> is a boring example', html=True)
     logger.console('Hello, console!')
+    
+使用Python标准 logging 模块
+除了 日志API, Robot Framework 提供对Python标准日志模块 logging 的支持. 使用这个模块后, 所有root logger收到的消息都会自动传递给 Robot Framework的日志文件. 同样, 该API提供了精确 时间戳 的支持. 
+但是不支持HTML格式, 以及向控制台打印日志. 最大的好处是, 使用这种日志API不会对 Robot Framework 产生依赖.
+import logging
+
+def my_keyword(arg):
+    logging.debug('Got argument %s' % arg)
+    do_something()
+    logging.info('This is a boring example')
+ 如果你在初始化阶段写日志, 例如, 在Python的 __init__ 方法中或者Java的构造函数中, 这些日志按 测试库的作用域 的不同, 可能会记录多次.
+ 
+ https://robotframework-userguide-cn.readthedocs.io/zh_CN/latest/CreatingTestData/UsingTestLibraries.html
+ 使用库的路径
+另一种导入库的方法是使用文件的路径来指定库. 类似于指定 资源文件和变量文件 的路径, 库的路径也被认为是相对于当前测试数据文件所在目录的(当然, 指定绝对路径也是可以的).
+
+这种方式最大的好处是无需配置模块搜索路径.
+
+如果库是一个文件, 则路径必须包含扩展名. 对Python库, 扩展名是 .py, 对Java库则是 .class 或 .java, 不过.class文件必须存在. 如果Python库是一个文件夹, 该路径最后必须有一个斜杠结尾(/).
+
+下面的例子展示了几种不同的情况.
+
+https://zhuanlan.zhihu.com/p/307923089
