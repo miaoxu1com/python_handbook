@@ -1,0 +1,19 @@
+日志分为控制台日志和日志文件，调试时一般需要打印到控制台
+使用
+sys.__stdout__.write()
+sys.__stderr__.write()
+ 
+用于编程写日志的API, 相对于往stdout和stderr中写入内容, 提供了更清晰的写日志方式. 但是, 当前这些API只对基于Python的库可用.
+
+日志API
+Robot Framework 提供了基于Python的日志API, 可以用来写日志文件和控制台. 测试库可以按照类似 logger.info('My message') 的方式来调用API, 以替代直接写stdout的方式 print '*INFO* My message'.
+
+使用API接口不但看上去更清楚, 还有个好处是可以提供精确的 时间戳.
+
+from robot.api import logger
+
+def my_keyword(arg):
+    logger.debug('Got argument %s' % arg)
+    do_something()
+    logger.info('<i>This</i> is a boring example', html=True)
+    logger.console('Hello, console!')
