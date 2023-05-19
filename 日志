@@ -1,4 +1,5 @@
 https://robotframework-userguide-cn.readthedocs.io/zh_CN/latest/ExtendingRobotFramework/CreatingTestLibraries.html#logging-to-console
+https://robotframework-userguide-cn.readthedocs.io/zh_CN/latest/index.html
 日志分为控制台日志和日志文件，调试时一般需要打印到控制台
 使用
 sys.__stdout__.write()
