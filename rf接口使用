@@ -2,3 +2,4 @@ from robot.api import logger
 from robot.api.deco import keyword
 from robot.utils import asserts
 os.sep
+from robotlibcore import DynamicCore
