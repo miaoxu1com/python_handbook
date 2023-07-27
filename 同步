@@ -1,0 +1,7 @@
+使用syncthing实现文件同步（附syncLazybones一键安装）
+前言
+安装syncthing
+1、下载：https://github.com/syncthing/syncthing/releases
+
+syncthing是个非常简单的绿色软件，打开是个命令行窗口，然后就可以网页访问控制面板http://127.0.0.1:8384；
+https://www.frank9.com/syncthing-and-synclazybones.html
