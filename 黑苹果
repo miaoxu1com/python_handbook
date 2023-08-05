@@ -1,3 +1,37 @@
 
 黑苹果
 https://www.mfpud.com/topics/10263/
+
+https://www.youtube.com/watch?v=2e9cHl6bVbg
+0.7.9链接: https://pan.baidu.com/s/19iWhq7tBYHxU... 提取码: 81am 
+0.8.0链接: https://pan.baidu.com/s/1B0EVFBW0nyAx... 提取码: 9a7l 
+OCAU链接: https://pan.baidu.com/s/1EDrSaKrkTqxz... 提取码: 3867 
+hackintoshbuild链接: https://pan.baidu.com/s/1EW2Qy5C6vdGL... 提取码: r3qh
+
+
+【Windows&macOS】完美双系统系列教程第2集，Windows环境下配置OC引导
+https://www.youtube.com/watch?v=-ay632ZngIw
+视频中提到的工具和镜像，镜像阿里云，下载后更改后缀为zip   https://www.aliyundrive.com/s/74ugRQr...   密码：9n6t
+工具百度云链接：https://pan.baidu.com/s/1VFuLao3LDb_V...    提取码：ile9
+
+
+【Windows&macOS】完美双系统系列教程第3集，安装macOS
+https://www.youtube.com/watch?v=5lk7nqkGCfo
+APPID支持页面
+https://github.com/acidanthera/AppleALC/wiki/Supported-codecs
+
+
+【Windows&macOS】完美双系统系列教程第4集，登录Apple ID
+https://www.youtube.com/watch?v=P4vpGiXZuuI
+视频中的三个命令，依次：
+sudo nvram myvar=test
+nvram -p | grep -i myvar
+sudo defaults write com.apple.loginwindow LogoutHook /Users/$你的用户名/LogoutHook/LogoutHook.command
+
+【Windows&macOS】完美双系统系列教程第5集，编译SSDT
+https://www.youtube.com/watch?v=v2qFhIUbKpk
+进阶的ssdt编译可以参考：dotania.github.io或者宪武的OC-LITTLE包。
+
+【Windows&macOS】完美双系统系列教程第6集，原生电源管理
+https://pan.baidu.com/share/init?surl=SpoQamnOR6riTqVz_s9wmA 提取码: n2tr
+
