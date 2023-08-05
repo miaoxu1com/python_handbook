@@ -1,5 +1,15 @@
 SysRi一键重装
 
+看图
+MassiGra
+jpegView
+
+我也有类似的测试，使用jpegView无法打开220MB的图片，原因是内存不足。另外，测试20MB的图片打开仅需要3秒，好快。
+作为比较，irfanview可以打开220MB的图片，大约25秒，另外，打开20MB的图片也是仅需要3秒，所以也推荐给大家。它也可以打开psd和heic。
+目前还是用MassiGra作为主要看图软件，软件占用空间小，打开图片速度极快，超高分辨率的大文件也能打开
+honeyview
+Windows一直用着当年在Picasa里的看图程序
+
 MusicPlayer2 --音乐
 https://github.com/zhongyang219/MusicPlayer2/releases
 
