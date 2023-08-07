@@ -1,5 +1,14 @@
 SysRi一键重装
 
+串口调试工具
+下载链接（选择任意一个即可）：
+https://github.com/wh201906/SerialTest/releases
+
+https://sourceforge.net/projects/serialtest/
+
+项目/源码链接：
+https://github.com/wh201906/SerialTest
+
 
 新建文件
 New Folder Wizard
@@ -55,11 +64,32 @@ https://www.gndown.com/2043.html
 Simple Screen Recorder(开源桌面录像工具) v1.2.5 中文版
 https://www.gndown.com/1764.html
 
+
 安卓修改大师(安卓系统手机管理) v10.37 中文版
 https://www.gndown.com/3363.html
 
 CHK(文件完整性校验工具) v3.96 绿色中文版
 https://www.gndown.com/5312.html
+文件哈希值批量计算器/批量校验，支持MD5/SHA1/SHA2系列/SHA3系列/Blake2/3系列等
+https://www.52pojie.cn/thread-1671702-1-1.html
+下载地址--蓝奏：
+https://wwn.lanzouv.com/b01px3sqh
+密码:fb0r
+如果想要集成到系统右键菜单功能，32 位系统请安装 x86 版本，64 位 安装 x64 版本，否则不会集成到系统右键菜单。portable 后缀的是便携版，没有集成到系统右键菜单功能。
+小提示，如果你的电脑上有 gitbash 或者 wsl，计算 hash 很容易哦：
+例： 计算 main.cpp 的 sha256 md5
+sha256sum main.cpp
+md5sum main.cpp
+如果需要递归计算 src 目录下所有文件的 md5 结果放到 md5sum.txt
+find src/ | xargs -n1 -I {} md5sum {} > md5sum.txt
+计算 src 目录下文件的 md5
+ls -l src | awk '{ if ( $1 ~ "^-" ) print $9 }' | xargs -n1 -I {} md5sum {} > md5sum.txt
+
+网工必备：超级终端中文版及3CDaemon汉化版
+https://www.52pojie.cn/thread-1813054-1-1.html
+https://wyl0205.lanzoul.com/ifTqm13gcfad
+密码:52pj
+
 
 Universal USB Installer(可启动U盘制作工具) v2.0.1.6
 https://www.gndown.com/5309.html
@@ -114,6 +144,7 @@ https://www.mefcl.com/wenxunping/3314
 https://www.mefcl.com/picturecleaner-1-0-2-5/1330
 
 FSviewer
+Snipaste
 https://www.cz88.net/
 ACDSee 3.1的美化版本
 ACDSee 3.1 SR1 美化版 build 1030(蓝色网际)
@@ -306,8 +337,12 @@ https://www.cr173.com/soft/15353.html
 https://www.52pojie.cn/thread-1817270-1-1.html
 
 资源管理器
+QTTabBar
+Q-dir
+directory opus
 Multi Commander(文件管理器) v13.1 Build 2955
-TC Commander
+Total Commander
+XYPlorer
 
 右键管理
 https://www.fy6b.com/rigclickm.html
@@ -389,15 +424,41 @@ https://github.com/kejimao/youtube-video-downloader
 
 快速启动
 everything
+Quicker
 rolan 1.3
 快速启动工具 | QStart（2.5.0.0）
 https://www.mefcl.com/qstart/5309
 快速启动工具 | Maye（原Maya）
 https://www.mefcl.com/maya/989
+Listary
 lily
 lucy
+Coodesker
 starter
 https://github.com/ruchuby/Starter/releases
+
+拷贝
+fastcopy-m
+fastcopy
+teracopy
+
+剪切板
+Ditto clipboard
+CopyQ
+ClipboardFusion
+快贴
+https://home.clipber.com/
+
+磁盘映射
+RaiDrive – 将网盘映射为磁盘
+
+空间分析
+Spacesniffer
+TreeSize
+wiztree
+
+目录生成
+snap2html
 
 下载
 Hitomi-Downloader
