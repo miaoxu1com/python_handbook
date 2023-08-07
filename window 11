@@ -5,6 +5,7 @@ MassiGra
 jpegView
 PicView(开源免费图像浏览器)
 EzViewer 
+https://www.iplaysoft.com/ezviewer.html
 isee
 irfanview
 XnView
@@ -16,6 +17,26 @@ QuickView
 picasa
 faststone viewer
 nomacs
+https://www.appinn.com/nomacs-image-viewer/
+
+
+bkViewer
+https://www.gndown.com/958.html
+
+MPV-EASY Player(多媒体播放器) v0.36.0.1 中文版
+https://www.gndown.com/3827.html
+
+mpv
+potplayer
+purecode
+
+拾色器
+https://www.gndown.com/2191.html
+Qwins系统工具
+https://www.luochenzhimu.com/archives/3529.html
+
+MouseInc2(全局鼠标手势软件) v2.13.4
+https://www.gndown.com/1546.html
 
 我也有类似的测试，使用jpegView无法打开220MB的图片，原因是内存不足。另外，测试20MB的图片打开仅需要3秒，好快。
 作为比较，irfanview可以打开220MB的图片，大约25秒，另外，打开20MB的图片也是仅需要3秒，所以也推荐给大家。它也可以打开psd和heic。
