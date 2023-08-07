@@ -50,12 +50,16 @@ SetupFactory
 DefenderUI(微软杀毒软件界面管理工具) v1.12 中文版
 https://www.gndown.com/2110.html
 
+卸载软件
 HiBit Uninstaller(软件卸载工具) v3.1.40 中文版
 https://www.gndown.com/1030.html
 geek
 IObit Uninstaller
 Uninstall Tool(专业软件卸载工具) 3.7.3.5716 中文版
 https://www.gndown.com/916.html
+Revo Uninstaller Pro
+Total Uninstall
+your uninstaller
 
 Cyberduck(免费开源FTP/SFTP客户端) v8.6.2.40032 中文版
 https://www.gndown.com/2043.html
@@ -422,25 +426,31 @@ https://www.moerats.com/archives/941/
 https://github.com/jely2002/youtube-dl-gui
 https://github.com/kejimao/youtube-video-downloader
 
-快速启动
+搜索
 everything
+Listary
+
+桌面整理
+Fences 
+快速启动
 Quicker
+RunAny
 rolan 1.3
 快速启动工具 | QStart（2.5.0.0）
 https://www.mefcl.com/qstart/5309
 快速启动工具 | Maye（原Maya）
 https://www.mefcl.com/maya/989
-Listary
 lily
 lucy
 Coodesker
 starter
 https://github.com/ruchuby/Starter/releases
 
-拷贝
+复制
 fastcopy-m
 fastcopy
 teracopy
+ExtremeCopy 
 
 剪切板
 Ditto clipboard
@@ -453,9 +463,11 @@ https://home.clipber.com/
 RaiDrive – 将网盘映射为磁盘
 
 空间分析
+FolderSizes 
 Spacesniffer
 TreeSize
 wiztree
+WinDirStat
 
 目录生成
 snap2html
