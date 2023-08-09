@@ -1,0 +1,104 @@
+根据楼主的python改的。就没做成运行文件，代码如下：新手勿喷。#!/usr/bin/env python3
+# encoding: utf-8
+'''
+@author: zengyun
+@contact: zengyun@lpht.com.cn
+@software: tool
+@application:
+@file: down.py
+@time: 2020/2/21 15:46
+@desc:
+'''
+
+import requests, bs4
+from tqdm import tqdm
+
+
+# 获取文件名称和下载地址
+def get_soup(url):
+    r = requests.get(url)
+    r.encoding = 'utf-8'  # 用utf-8解码文档
+    rt = r.text
+    soup = bs4.BeautifulSoup(rt, 'lxml')
+    return soup
+
+
+# 创建文件夹
+def mkdir(path):
+    # 引入模块
+    import os
+    # 去除首位空格
+    path = path.strip()
+    # 去除尾部 \ 符号
+    path = path.rstrip("\\")
+    # 判断路径是否存在
+    # 存在     True
+    # 不存在   False
+    isExists = os.path.exists(path)
+    # 判断结果
+    if not isExists:
+        # 如果不存在则创建目录
+        # 创建目录操作函数
+        os.makedirs(path)
+        print(path + ' 创建成功')
+        return True
+    else:
+        # 如果目录存在则不创建，并提示目录已存在
+        print(path + ' 目录已存在')
+        return False
+
+
+# 获取桌面路径
+def get_desktop():
+    key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, r'Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders')
+    return winreg.QueryValueEx(key, "Desktop")[0]
+
+
+# 下载文件
+def get_pdf(savename, filename, url):
+    response = requests.get(url, stream="TRUE")
+    # stream=True的作用是仅让响应头被下载，连接保持打开状态，
+    content_size = int(response.headers['Content-Length']) / 1024
+    # 确定整个安装包的大小
+    # pdf = response.content
+    pbar = tqdm(total=content_size, initial=0, unit='B', unit_scale=True, desc=filename)
+    with open(savename, 'wb') as f:
+        # 下载文件
+        for chunk in response.iter_content(chunk_size=1024):
+            if chunk:
+                f.write(chunk)
+                # 更新文件大小
+                pbar.update(1024)
+    pbar.close()
+
+
+url = 'https://bp.pep.com.cn/jc/index.html'
+# 学科名称
+discipline0 = '人教版中小学电子教案'  # 学科主目录
+discipline1 = []  # 学科一级目录
+discipline2 = {}  # 学科二级目录
+discipline = get_soup(url=url).find_all('div', "list_sjzl_jcdzs2020")
+# 创建主目录
+mkdir(path=get_desktop() + "\\" + discipline0)
+
+for i in discipline:
+    discipline_class = i.find('div', "container_title_jcdzs2020")
+    discipline_class_name = discipline_class.get_text()
+    # 创建一级目录
+    mkdir(path=get_desktop() + "\\" + discipline0 + "\\" + discipline_class_name)
+    # 一级目录list
+    # discipline1.append(discipline_class_name)
+    for a in i.find_all('a'):
+        value = 'https://bp.pep.com.cn/jc' + a['href'][1:]
+        key = a.get_text()
+        discipline2[key] = value  # 创建字典
+        # 创建二级目录
+        mkdir(path=get_desktop() + "\\" + discipline0 + "\\" + discipline_class_name + "\\" + key)
+        textbook = get_soup(url=value).find_all('ul', "clearfix")
+        for i in textbook:
+            for j in i.find_all('li', 'fl js_cp'):
+                save_name = get_desktop() + "\\" + discipline0 + "\\" + discipline_class_name + "\\" + key + '\\' + \
+                            j.find('a')['title'] + ".pdf"
+                h_url = j.find('a', "btn_type_dl")['href']
+                d_url = value + h_url[2:]
+                get_pdf(savename=save_name, filename=j.find('a')['title'], url=d_url)
