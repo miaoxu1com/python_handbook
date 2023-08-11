@@ -1,0 +1,17 @@
+ALTER USER 'root'@'%' IDENTIFIED BY 'Autel123'; 一直报错
+
+sudo mkdir /var/run/mysqld
+sudo chown mysql: /var/run/mysqld
+mysql -u root
+FLUSH PRIVILEGES;
+CREATE USER 'test'@'%' IDENTIFIED BY 'Autel123';
+GRANT ALL PRIVILEGES ON *.* TO 'test'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+quit
+sudo kill -9 pid
+sudo systemctl start mysql
+mysql -utest -p
+CREATE USER 'root'@'%' IDENTIFIED BY 'Autel123';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+quit
