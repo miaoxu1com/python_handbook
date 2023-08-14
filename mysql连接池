@@ -15,3 +15,57 @@ https://www.cnblogs.com/hi3254014978/p/15056127.html
             setsession=[],  # 例如，可以通过setsession=[('autocommit', True)]来设置连接的自动提交模式为True
             **db_config
         )
+
+
+class post_sql_info:
+    def __init__(self):
+        self.pool = PooledDB(
+            creator=pymysql,  # 使用pymysql作为数据库连接库
+            maxconnections=None,  # 连接池允许的最大连接数，0和None表示不限制连接数
+            mincached=12,  # 初始化时，链接池中至少创建的空闲的链接，0表示不创建
+            maxshared=0,
+            blocking=True,  # 连接池中如果没有可用连接后，是否阻塞等待。True，等待；False，不等待然后报错
+            maxusage=None,  # 一个链接最多被重复使用的次数，None表示无限制
+            ping=0,  # 如果设置为0，则表示连接不会被ping。
+            **db_config
+        )
+
+        self.connection = None
+        self.cursor = None
+
+    def connect(self):
+        try:
+            self.connection = self.pool.connection()
+            self.cursor = self.connection.cursor()
+
+        except Exception:
+            logger.error("mysql打开失败！")
+
+配合线程池时
+
+from concurrent.futures import ThreadPoolExecutor
+
+from loguru import logger
+
+
+def multi_thread_doit(tar_get_name, *args):
+    # 创建包含指定线程数的线程池
+    with ThreadPoolExecutor(max_workers=12) as executor:
+
+        # 提交目标函数及参数到线程池执行
+        tasks = []
+        for param in args[0]:
+            tasks.append(executor.submit(tar_get_name, *param))
+        # 等待所有任务完成
+        for future in tasks:
+            res = future.result()
+            if res is None:
+                continue
+            else:
+                logger.debug(f"{res}")
+
+特别注意：不要共享数据库连接否则会出现查询冲突导致数据查询失败返回None,一定要这样才行否则就数据库连接就冲突了
+def task():
+    sql = post_sql_info()
+    sql.connect()
+
