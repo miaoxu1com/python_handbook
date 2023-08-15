@@ -1,5 +1,8 @@
 https://zhuanlan.zhihu.com/p/386072050
 
+使用chatgpt时 要先给出前提环境 记住我的python环境是3.10版本 记住代码中要包含异常捕获  一下代码适合协程吗
+请给我一份适合高并发的mysql配置优化方案
+
 def get_file_paths(directory):
     file_paths = []
     for filename in os.listdir(directory):
