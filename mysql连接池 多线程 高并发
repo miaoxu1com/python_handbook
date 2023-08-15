@@ -70,3 +70,5 @@ def task():
     sql = post_sql_info()
     sql.connect()
 
+
+mysql的配置文件格式比较严格
