@@ -1,3 +1,4 @@
+多线程依赖数据库的连接数，连接数过少会报错，报没有空闲连接
 https://www.cnblogs.com/hi3254014978/p/15056127.html
         # 创建连接池
         self.pool = PooledDB(
