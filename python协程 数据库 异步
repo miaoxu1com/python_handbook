@@ -56,3 +56,165 @@ async with pool.acquire() as conn:
 与直接调用pool.connection()不同,acquire()会正确管理连接的获取和释放,避免资源泄露。
 
 应该在finally块中关闭或使用async with结构来释放连接。
+
+异步数据库操作自动释放连接池连接
+import aiomysql
+from loguru import logger
+
+
+class AsyncPostSQL:
+
+    def __init__(self):
+        self.pool = None
+
+    async def connect(self):
+        self.pool = await aiomysql.create_pool(
+            host="10.240.35.92",
+            port=3306,
+            user="root",
+            password="Autel123",
+            db="piltest",
+            maxsize=1,  #1每个协程创建一个
+            minsize=1,  #1每个协程创建一个
+            autocommit=True
+        )
+
+    async def get_path_for_id(self, id):
+        try:
+            async with self.pool.acquire() as conn:
+                async with conn.cursor() as cur:
+                    sql = "SELECT id,case_name FROM piltest_case_report_detail WHERE case_plan_id = {}".format(id)
+                    await cur.execute(sql)
+                    return await cur.fetchall()
+        except aiomysql.DatabaseError as e:
+            logger.debug(f"Query error: {e}")
+
+    async def insert_data(self, table, data):
+        try:
+            async with self.pool.acquire() as conn:
+                async with conn.cursor() as cur:
+                    cols = ','.join(data.keys())
+                    vals = ','.join(['%s'] * len(data))
+                    sql = f'INSERT INTO {table} ({cols}) VALUES ({vals});'
+                    try:
+                        await cur.execute(sql, list(data.values()))
+                        last_insert_id = cur.lastrowid
+                        return last_insert_id
+                    except Exception as e:
+                        logger.debug(f'Insert failed: {e}')
+        except aiomysql.DatabaseError as e:
+            logger.debug(f"Insert failed: {e}")
+
+    async def update_data(self, table_name, column_value_pairs, condition):
+        try:
+            async with self.pool.acquire() as conn:
+                async with conn.cursor() as cur:
+                    set_clause = ",".join([f"{c}=%s" for c in column_value_pairs])
+                    where_clause = "AND ".join([f"{c}=%s" for c in condition])
+                    values = list(column_value_pairs.values()) + list(condition.values())
+                    sql = f"UPDATE {table_name} SET {set_clause} WHERE {where_clause}"
+                    await cur.execute(sql, values)
+                    affected_rows = cur.rowcount
+                    return affected_rows
+        except aiomysql.DatabaseError as e:
+            logger.debug(f"Update failed: {e}")
+
+    async def query_fetch_all(self, table, columns, condition=None, desc=False):
+        try:
+            async with self.pool.acquire() as conn:
+                async with conn.cursor() as cur:
+                    cols = ','.join(columns)
+                    where = ' AND '.join([f'{k}=%s' for k in condition]) if condition else ''
+                    sql = f'SELECT {cols} FROM {table} WHERE {where}'
+                    if desc:
+                        sql += ' ORDER BY update_time DESC'
+                    values = list(condition.values()) if condition else None
+                    await cur.execute(sql, values)
+                    result = await cur.fetchall()
+                    return result
+        except aiomysql.DatabaseError as e:
+            logger.debug(f"Query error: {e}")
+#  协程事假-计算的使用同步更快测试，计算类型的代码使用协程反而代码执行时间更长
+
+import asyncio
+import hashlib
+import os
+import time
+
+from piltest.util.asyncio_post_sql_info import AsyncPostSQL
+
+
+def calculate_md5(file_path):
+    md5_hash = hashlib.md5()
+    with open(file_path, "rb") as file:
+        for chunk in iter(lambda: file.read(4096), b""):
+            md5_hash.update(chunk)
+    return md5_hash.hexdigest()
+
+
+def get_file_size(file_path):
+    file_size = os.stat(file_path).st_size
+    return file_size
+
+
+def convert_to_mb(file_size):
+    size_in_mb = file_size / (1024 * 1024)
+    unit = "MB"
+    size_in_mb = str(round(size_in_mb, 2)) + unit
+    return size_in_mb
+
+
+def get_file_name(file_path):
+    file_name = os.path.basename(file_path)
+    return file_name
+
+
+def get_file_paths(directory):
+    file_paths = []
+    for filename in os.listdir(directory):
+        file_path = os.path.join(directory, filename)
+        if os.path.isfile(file_path):
+            file_paths.append((file_path,))
+    return file_paths
+
+
+async def save_file_info(pool, file_path):
+    # 计算MD5和大小
+    md5 = calculate_md5(file_path)
+    size = get_file_size(file_path)
+    table_name = "piltest_file_info"
+    col = ["id", "file_path", "md5", "file_size", "flag"]
+    cond = {"md5": md5}
+    res = await pool.query_fetch_all(table_name, col, cond)
+
+    if bool(len(res)) is False:
+        table_name = "piltest_file_info"
+        col = {
+            "file_path": file_path,
+            "md5": md5,
+            "file_size": size
+        }
+        await pool.insert_data(table_name, col)
+
+
+file_id_list = []
+
+
+async def main():
+    db = AsyncPostSQL()
+    await db.connect()
+    table_name = "piltest_file_info"
+    col = ["id", "file_path", "md5", "file_size", "create_time", "flag"]
+    cond = {"flag": 1}
+    file_list = await db.query_fetch_all(table_name, col, cond)
+    tasks = [save_file_info(db, f[1]) for f in file_list]
+    await asyncio.gather(*tasks)
+
+
+if __name__ == "__main__":
+    start_time = time.time()
+    asyncio.run(main())
+    end_time = time.time()
+
+    execution_time = end_time - start_time
+    print(f"执行时间：{execution_time} 秒")
