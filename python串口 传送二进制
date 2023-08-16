@@ -1,3 +1,11 @@
+# crc校验库
+crcmod
+
+mkCrcFun(0x11021, rev=True, initCrc=0xFFFF, xorOut=0x0000)
+
+
+方法都要兼容大数据，方法就是切片、分帧、分片、分组chunk_size，分片的数据就要存储在缓冲区等待接收完整一帧后再组装分片
+
 # 存在一个16进制数组
 data = [
         0x20, 0x1c, 0x00, 0x01, 0x04, 0x32, 0x00, 0x70,
