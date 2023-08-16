@@ -2,7 +2,7 @@ import sys
 
 from loguru import logger
 
-
+# 只打印Debug信息到log.log文件，控制台输出INFO信息
 def debug_only(record):
     return record["level"].name == "DEBUG"
 
