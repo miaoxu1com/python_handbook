@@ -13,3 +13,20 @@
 如果您的文件之间有关联性，或者需要简化管理和节省成本，那么将多个文件共享一个存储桶可能更合适。
 
 有一个问题是内存开销  还是读写开销
+
+
+docker run -d 
+-p 9000:9000 
+-p 9001:9001 --name minio 
+-e "MINIO_ROOT_USER=autel" 
+-e "MINIO_ROOT_PASSWORD=autel123" 
+-v /root/minio/data1:/data1 
+-v /root/minio/data2:/data2 
+-v /root/minio/config:/root/.minio 
+quay.io/minio/minio server /data1 /data2 
+--console-address ":9001" --address ":9000"
+
+参考文章：
+https://blog.csdn.net/networken/article/details/111500745
+https://baiyp.ren/MinIO.html
+https://blog.51cto.com/gblfy/5653234
