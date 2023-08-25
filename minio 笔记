@@ -11,3 +11,10 @@ https://blog.csdn.net/qianshangding0708/article/details/121092017
 https://cloud.tencent.com/developer/article/1699160
 
 
+
+docker run -d -p 9000:9000 -p 9001:9001 --name minio -e "MINIO_ROOT_USER=autel" 
+-e "MINIO_ROOT_PASSWORD=autel123" 
+-v /root/minio/data1:/data1 
+-v /root/minio/config:/root/.minio quay.io/minio/minio 
+server /data1 --console-address ":9001" 
+--address ":9000"
