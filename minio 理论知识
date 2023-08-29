@@ -12,7 +12,7 @@
 或者需要更高的安全性和隔离性，那么将每个文件存储在单独的存储桶中可能更合适。
 如果您的文件之间有关联性，或者需要简化管理和节省成本，那么将多个文件共享一个存储桶可能更合适。
 
-有一个问题是内存开销  还是读写开销
+有一个问题是内存开销  还是读写开销  bucket存在再次写入会更新已存在的bucket数据
 
 Bucket names must be between 3 (min) and 63 (max) characters long.
 Bucket names can consist only of lowercase letters, numbers, dots (.), and hyphens (-).
