@@ -16,6 +16,9 @@
 百万数据写数据库
 https://bbs.huaweicloud.com/forum/thread-0227126154192353006-1-1.html
 https://www.cnblogs.com/hi3254014978/p/15056127.html
+
+pycharm 识别不了一些对象的方法 pool.conn.commit 识别不了
+
 # 创建连接池
 pool = PooledDB(
     creator=pymysql,  # 使用pymysql作为数据库连接库
