@@ -110,6 +110,7 @@ class post_sql_info:
             values = list(column_value_pairs.values()) + list(condition.values())
             sql = f"UPDATE {table_name} SET {set_clause} WHERE {where_clause}"
             cursor.execute(sql, values)
+            conn.commit()
             cursor.close()
             conn.close()
         except Exception as e:
