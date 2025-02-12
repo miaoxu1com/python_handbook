@@ -1,6 +1,0 @@
-
-https://blog.csdn.net/Anthea_1013/article/details/118340925
-https://blog.csdn.net/FloraCHY/article/details/104806605
-https://www.cnblogs.com/lwjnicole/p/14484048.html
-
- pytest -s -q  --alluredir report --cache-clear --clean-alluredir --no-summary
